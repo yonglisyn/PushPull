@@ -1,0 +1,109 @@
+﻿@model PushPull.ViewModels.TaskListViewModel
+
+@{
+    ViewBag.Title = "Task";
+}
+
+<link href="@Url.Content("~/Content/taskanimation.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/taskList.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/jquery-1.11-ui.min.css")" rel="stylesheet" />
+<div class="container">
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="row row-eq-heightt">
+            <div class="col-sm-4">
+                <h3>Task Completed</h3>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <hr />
+    <div class="row" style="overflow-y: auto">
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading clickable">
+                    <h3 class="panel-title">Panel 1</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body">
+                    <ul class="thumbnails" id="iuTaskList">
+                        @{
+                            foreach (var taskCard in Model.IuTaskCards)
+                            {
+                                <li class="col-lg-6 col-sm-6 col-md-12 col-xs-6" id="@taskCard.TaskId">
+                                    @{ Html.RenderPartial("_TaskCardNoEdit", taskCard);}
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading clickable">
+                    <h3 class="panel-title">Panel 2</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body">
+                    <ul class="thumbnails" id="inuTaskList">
+                        @{
+                            foreach (var taskCard in Model.InuTaskCards)
+                            {
+                                <li class="col-lg-6 col-sm-6 col-xs-6" id="@taskCard.TaskId">
+                                    @{ Html.RenderPartial("_TaskCard", taskCard); }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-warning">
+                <div class="panel-heading clickable">
+                    <h3 class="panel-title">Panel 3</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body">
+                    <ul class="thumbnails" id="niuTaskList">
+                        @{
+                            foreach (var taskCard in Model.NiuTaskCards)
+                            {
+                                <li class="col-lg-6 col-sm-6 col-xs-6" id="@taskCard.TaskId">
+                                    @{ Html.RenderPartial("_TaskCard", taskCard); }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-danger">
+                <div class="panel-heading clickable">
+                    <h3 class="panel-title">Panel 4</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body">
+                    <ul class="thumbnails" id="ninuTaskList">
+                        @{
+                            foreach (var taskCard in Model.NinuTaskCards)
+                            {
+                                <li class="col-lg-6 col-sm-6 col-xs-6" id="@taskCard.TaskId">
+                                    @{ Html.RenderPartial("_TaskCard", taskCard); }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

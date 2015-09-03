@@ -13,8 +13,13 @@ namespace PushPull.Helpers.Extensions
                                  data-content='{6}' data-tasktype={7} data-deadline={8}", 
                                  taskCard.TaskId, taskCard.Card.AssetType, taskCard.Card.ValueUnit,
                                 taskCard.Card.AssetValue,taskCard.Card.FailValue, taskCard.Card.Tag,
-                                taskCard.Card.Content, (int)taskCard.EisenHowerType, 
-                                taskCard.DeadlineDisplay);
+                                taskCard.Card.Content, (int)taskCard.EisenHowerType, DateTimeDisplay(helper,taskCard.DeadLine));
+        }
+
+        public static string DateTimeDisplay(this HtmlHelper helper,DateTime? dateTime)
+        {
+            return dateTime == null ? string.Empty : 
+                DateTime.Parse(dateTime.ToString()).ToString("yyyy-MM-dd");
         }
     }
 }

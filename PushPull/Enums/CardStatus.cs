@@ -6,6 +6,6 @@
         Started=2,
         Completed=3,
         Failed=4,
-        Cancelld = 5
+        Cancelled = 5
     }
 }

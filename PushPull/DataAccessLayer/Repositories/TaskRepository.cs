@@ -11,11 +11,11 @@ namespace PushPull.DataAccessLayer.Repositories
 {
     public class TaskRepository: ITaskRepository
     {
-        public async Task<List<TaskCard>> GetAllTaskCardsAsync(int userId)
+        public async Task<List<TaskCard>> GetToDoTaskCardsAsync(int userId)
         {
             using (var db = new ApplicationDbContext())
             {
-                return await db.Set<TaskCard>().ToListAsync();
+                return await db.Set<TaskCard>().Where(x=>x.UserId == userId && x.Card.Status == CardStatus.NotStarted).ToListAsync();
             }
         }
 
@@ -23,15 +23,15 @@ namespace PushPull.DataAccessLayer.Repositories
         {
             using (var db = new ApplicationDbContext())
             {
-                return await db.Set<TaskCard>().Where(x=>x.Card.Status == CardStatus.Completed).ToListAsync();
+                return await db.Set<TaskCard>().Where(x => x.UserId == userId && x.Card.Status == CardStatus.Completed).ToListAsync();
             }
         }
 
-        public async Task<List<TaskCard>> GetGiveUpedTaskCardsAsync(int userId)
+        public async Task<List<TaskCard>> GetFailedTaskCardsAsync(int userId)
         {
             using (var db = new ApplicationDbContext())
             {
-                return await db.Set<TaskCard>().Where(x => x.Card.Status == CardStatus.Failed).ToListAsync();
+                return await db.Set<TaskCard>().Where(x => x.UserId == userId && x.Card.Status == CardStatus.Failed).ToListAsync();
             }
         }
 
@@ -62,6 +62,16 @@ namespace PushPull.DataAccessLayer.Repositories
                 db.Set<TaskCard>().AddOrUpdate(taskCard);
                 await db.SaveChangesAsync();
                 return taskCard;
+            }
+        }
+        public async Task UpdateStatus(long taskCardId, CardStatus status)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+
+                var taskCard = db.Set<TaskCard>().First(x => x.TaskId == taskCardId);
+                taskCard.Card.Status = status;
+                await db.SaveChangesAsync();
             }
         }
     }

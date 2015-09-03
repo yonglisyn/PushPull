@@ -48,8 +48,24 @@ namespace PushPull.Controllers
         public async Task<ActionResult> Index()
         {
             var userId = User.Identity.GetUserId<int>();
-            var taskToBeDone = await TaskRepository.GetAllTaskCardsAsync(userId);
+            var taskToBeDone = await TaskRepository.GetToDoTaskCardsAsync(userId);
             return View("TaskList", new TaskListViewModel(taskToBeDone));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> CompletedTask()
+        {
+            var userId = User.Identity.GetUserId<int>();
+            var taskToBeDone = await TaskRepository.GetCompletedTaskCardsAsync(userId);
+            return View("CompletedTaskList", new TaskListViewModel(taskToBeDone));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> FailedTask()
+        {
+            var userId = User.Identity.GetUserId<int>();
+            var taskToBeDone = await TaskRepository.GetFailedTaskCardsAsync(userId);
+            return View("CompletedTaskList", new TaskListViewModel(taskToBeDone));
         }
 
         [HttpPost]
@@ -170,6 +186,58 @@ namespace PushPull.Controllers
             return Json(new
             {
                 Status = ResponseStatus.Fail
+            });
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SetToComplete(long taskId)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await TaskRepository.UpdateStatus(taskId,CardStatus.Completed);
+                    return Json(new
+                    {
+                        Status = ResponseStatus.Success,
+                        TaskId = taskId
+                    });
+                }
+                catch (Exception ex)
+                {
+                    //todo use elma to log ex
+                    ModelState.AddModelError("Exception", "Hi Boss, System is sick. Need MC!");
+                }
+            }
+            return Json(new
+            {
+                Status = ResponseStatus.Fail,
+            });
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SetToFail(long taskId)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await TaskRepository.UpdateStatus(taskId,CardStatus.Failed);
+                    return Json(new
+                    {
+                        Status = ResponseStatus.Success,
+                        TaskId = taskId
+                    });
+                }
+                catch (Exception ex)
+                {
+                    //todo use elma to log ex
+                    ModelState.AddModelError("Exception", "Hi Boss, System is sick. Need MC!");
+                }
+            }
+            return Json(new
+            {
+                Status = ResponseStatus.Fail,
             });
         }
     }

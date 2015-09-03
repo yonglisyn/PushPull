@@ -36,22 +36,5 @@ namespace PushPull.Models
         public string ModifiedBy { get; set; }
         
         public virtual ApplicationUser User { get; set; }
-
-        public string DeadlineDisplay
-        {
-            get
-            {
-                return DeadLine == null
-                    ? string.Empty
-                    : DateTime.Parse(DeadLine.ToString()).ToString("yyyy-MM-dd");
-            }
-        }
-        public string RandomCss
-        {
-            get
-            {
-                return "random" +new Random().Next(0, 5);
-            }
-        }
     }
 }

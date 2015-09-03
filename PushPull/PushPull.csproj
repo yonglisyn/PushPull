@@ -363,9 +363,11 @@
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Task\TaskList.cshtml" />
     <Content Include="Views\Task\_TaskCard.cshtml" />
+    <Content Include="Views\Task\CompletedTaskList.cshtml" />
     <None Include="Views\Task\_ModalFail.cshtml" />
     <None Include="Views\Task\_ModalSuccess.cshtml" />
     <None Include="Views\Task\_TaskCardEditForm.cshtml" />
+    <Content Include="Views\Task\_TaskCardNoEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

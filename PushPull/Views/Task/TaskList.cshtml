@@ -47,7 +47,7 @@
     <div class="row">
         <div class="row row-eq-heightt">
             <div class="col-sm-4">
-                <h3>Task Management</h3>
+                <h3>Task To Do</h3>
             </div>
             <div class="col-sm-8">
                 <span data-toggle="modal" data-target="#taskcardAddModal" title="Add task" href="#">
@@ -370,7 +370,40 @@
 
     }
 
-    function SetTaskComplete(id) {
-        $('#' + id).find("[name='taskComplete-alert']").delay(200).addClass("in").slideUp(3000);
+    function setTaskToCompleted(id) {
+        if (id == null) {
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SetToComplete","Task")',
+            async: true,
+            data: { 'taskId': id },
+            success: function (response) {
+                if (response.Status === 0) {
+                    removeSuccess(id);
+                } else {
+                    $("#modal-fail").modal('show');
+                }
+            }
+        });
+    }
+    function setTaskToFailed(id) {
+        if (id == null) {
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SetToFail","Task")',
+            async: true,
+            data: { 'taskId': id },
+            success: function (response) {
+                if (response.Status === 0) {
+                    removeSuccess(id);
+                } else {
+                    $("#modal-fail").modal('show');
+                }
+            }
+        });
     }
 </script>

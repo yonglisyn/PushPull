@@ -1,14 +1,22 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/top-jquery")
-@Scripts.Render("~/bundles/bottom-jquery")
-@Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/bottom-jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <style>
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+    </style>
 </head>
+
 <body class="container-full">
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -23,9 +31,17 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+                            Task <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("To Do(Manage)","Index","Task")</li>
+                            <li>@Html.ActionLink("Completed","CompletedTask","Task")</li>
+                            <li>@Html.ActionLink("Failed","FailedTask","Task")</li>
+                        </ul>
+                    </li>
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
