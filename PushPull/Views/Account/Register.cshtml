@@ -1,0 +1,51 @@
+﻿@model IdentitySample.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<div class="row">
+    <div class="col-lg-8">
+        <section id="register">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-11">
+                        <h4>Create a new account</h4>
+                        <hr />
+                    </div>
+                </div>
+                @Html.ValidationSummary("", new { @class = "msg msg-error" })
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-11">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = HttpUtility.HtmlDecode(Html.DisplayNameFor(x => x.Email).ToHtmlString()) })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-11">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = HttpUtility.HtmlDecode(Html.DisplayNameFor(x => x.UserName).ToHtmlString()) })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-11">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = HttpUtility.HtmlDecode(Html.DisplayNameFor(x => x.Password).ToHtmlString()) })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-11">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = HttpUtility.HtmlDecode(Html.DisplayNameFor(x => x.ConfirmPassword).ToHtmlString()) })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-11">
+                        <input type="submit" class="btn btn-success btn-block" value="Register" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+    <div class="col-lg-4">
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new IdentitySample.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿@using PushPull.Helpers.Extensions
+@model PushPull.Models.TaskCard
+    <div class="thumbnail stickynote img-responsive">
+    <div class="caption">
+        <p class="hand-writen-font">@Model.Card.Content<span class="rec-outline negative">@Model.DeadlineDisplay</span></p>
+        <hr class="edithr" />
+        <div class="noteedit-group">
+            <span data-toggle="modal" data-target="#taskcardEditModal" @Html.Raw(Html.GetTaskCardData(Model)) title="Edit task" href="#">
+                <span class="btn btn-outline btn-xs noteedit"><i class="glyphicon glyphicon-edit"></i></span>
+            </span>
+            <span class="btn btn-outline btn-xs noteedit" onclick="SetTaskComplete('@Model.TaskId')"><i class="glyphicon glyphicon-ok-circle"></i></span>
+            <span class="btn btn-outline btn-xs noteedit"><i class="glyphicon glyphicon-remove-circle"></i></span>
+            <span class="btn btn-outline btn-xs noteedit" onclick="removeTask('@Model.TaskId')"><i class="glyphicon glyphicon-trash"></i></span>
+        </div>
+        <div>
+            <hr class="assethr" />
+            <p>
+                <span class="assetvalue positive pull-left">@Model.Card.AssetValue@Model.Card.ValueUnit</span>
+                <span class="assetvalue negative pull-right">@Model.Card.FailValue@Model.Card.ValueUnit</span>
+            </p>
+        </div>
+        <div name="taskComplete-alert" class="alert alert-success fade stickynote-alert">
+            <strong>Task Completed!</strong>
+        </div>
+        <div name="taskRemove-alert" class="alert alert-warning fade stickynote-alert">
+            <strong>Task Removed!</strong>
+        </div>
+    </div>
+</div>
