@@ -3,7 +3,7 @@ using PushPull.Enums;
 
 namespace PushPull.Models
 {
-    public class AssetContainer
+    public class Asset
     {
         public int Id { get; set; }
         public int UserId { get; set; }

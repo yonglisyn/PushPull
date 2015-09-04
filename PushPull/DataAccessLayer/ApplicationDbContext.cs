@@ -21,7 +21,7 @@ namespace PushPull.DataAccessLayer
             Database.SetInitializer(new ApplicationDbInitializer());
         }
         public DbSet<TaskCard> TaksCards { get; set; }
-        public DbSet<AssetContainer> AssetContainers { get; set; }
+        public DbSet<Asset> Assets { get; set; }
         public DbSet<CustomerLife> CustomerLives { get; set; }
 
         public static ApplicationDbContext Create()
@@ -69,7 +69,7 @@ namespace PushPull.DataAccessLayer
             modelBuilder.Entity<TaskCard>()
                 .Property(t => t.Card.Content)
                 .HasMaxLength(AccountConstSettings.CommonStringLength);
-            modelBuilder.Entity<AssetContainer>().Property(a => a.Id)
+            modelBuilder.Entity<Asset>().Property(a => a.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<CustomerLife>().Property(a => a.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
@@ -81,7 +81,7 @@ namespace PushPull.DataAccessLayer
         private static void KeyConfiguration(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TaskCard>().HasKey(t => t.TaskId);
-            modelBuilder.Entity<AssetContainer>().HasKey(a => a.Id);
+            modelBuilder.Entity<Asset>().HasKey(a => a.Id);
             modelBuilder.Entity<CustomerLife>().HasKey(a => a.Id);
         }
 

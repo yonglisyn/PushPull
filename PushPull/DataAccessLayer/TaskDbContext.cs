@@ -16,7 +16,7 @@ namespace PushPull.DataAccessLayer
         public DbSet<TaskCard> TaksCards{ get; set; }
         public DbSet<RecurredSchedule> RecurredSchedules { get; set; }
         public DbSet<ScheduleCard> ScheduleCards { get; set; } 
-        public DbSet<AssetContainer> AssetContainers{ get; set; } 
+        public DbSet<Asset> AssetContainers{ get; set; } 
         public DbSet<Punishment> Punishments{ get; set; } 
         public DbSet<Tag> Tags{ get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

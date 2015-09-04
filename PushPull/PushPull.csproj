@@ -161,7 +161,7 @@
     <Compile Include="Constants\AccountConstSettings.cs" />
     <Compile Include="Constants\StringConst.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
@@ -171,6 +171,8 @@
     <Compile Include="DataAccessLayer\AccountDbInitializer.cs" />
     <Compile Include="DataAccessLayer\ApplicationDbContext.cs" />
     <Compile Include="DataAccessLayer\ApplicationDbInitializer.cs" />
+    <Compile Include="DataAccessLayer\Repositories\AssetRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\Interfaces\IAssetRepository.cs" />
     <Compile Include="DataAccessLayer\Repositories\Interfaces\ITaskRepository.cs" />
     <Compile Include="DataAccessLayer\Repositories\TaskRepository.cs" />
     <Compile Include="DataAccessLayer\TaskDbContext.cs" />
@@ -198,6 +200,7 @@
     <Compile Include="Models\ApplicationUserLogin.cs" />
     <Compile Include="Models\ApplicationUserRole.cs" />
     <Compile Include="Models\ApplicationUserStore.cs" />
+    <Compile Include="Models\AssetViewModel.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerLife.cs" />
@@ -209,7 +212,7 @@
     <Compile Include="Models\ScheduleCard.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TaskCard.cs" />
-    <Compile Include="Models\AssetContainer.cs" />
+    <Compile Include="Models\Asset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -364,6 +367,7 @@
     <Content Include="Views\Task\TaskList.cshtml" />
     <Content Include="Views\Task\_TaskCard.cshtml" />
     <Content Include="Views\Task\CompletedTaskList.cshtml" />
+    <None Include="Views\Asset\Index.cshtml" />
     <None Include="Views\Task\_ModalFail.cshtml" />
     <None Include="Views\Task\_ModalSuccess.cshtml" />
     <None Include="Views\Task\_TaskCardEditForm.cshtml" />
