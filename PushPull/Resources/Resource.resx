@@ -165,4 +165,10 @@
   <data name="EisenHowerType_NIU" xml:space="preserve">
     <value>Not important but urgent</value>
   </data>
+  <data name="MoneyAsset" xml:space="preserve">
+    <value>Money Asset</value>
+  </data>
+  <data name="TimeAsset" xml:space="preserve">
+    <value>Time Asset</value>
+  </data>
 </root>

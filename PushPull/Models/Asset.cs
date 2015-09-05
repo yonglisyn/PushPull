@@ -7,6 +7,7 @@ namespace PushPull.Models
     {
         public int Id { get; set; }
         public int UserId { get; set; }
+        public AssetPurpose AssetPurpose { get; set; }
         public AssetType AssetType { get; set; }
         public decimal AssetValue { get; set; }
         public DateTime ModifiedOn { get; set; }

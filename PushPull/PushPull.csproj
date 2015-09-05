@@ -176,6 +176,7 @@
     <Compile Include="DataAccessLayer\Repositories\Interfaces\ITaskRepository.cs" />
     <Compile Include="DataAccessLayer\Repositories\TaskRepository.cs" />
     <Compile Include="DataAccessLayer\TaskDbContext.cs" />
+    <Compile Include="Enums\AssetPurpose.cs" />
     <Compile Include="Enums\EisenHowerType.cs" />
     <Compile Include="Enums\PunishmentStatus.cs" />
     <Compile Include="Enums\RecurrenceType.cs" />

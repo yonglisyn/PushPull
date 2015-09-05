@@ -169,6 +169,15 @@ namespace PushPull.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Money Asset.
+        /// </summary>
+        public static string MoneyAsset {
+            get {
+                return ResourceManager.GetString("MoneyAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Success value.
         /// </summary>
         public static string SuccessValue {
@@ -183,6 +192,15 @@ namespace PushPull.Resources {
         public static string Tag {
             get {
                 return ResourceManager.GetString("Tag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time Asset.
+        /// </summary>
+        public static string TimeAsset {
+            get {
+                return ResourceManager.GetString("TimeAsset", resourceCulture);
             }
         }
         

@@ -56,7 +56,7 @@ namespace PushPull.DataAccessLayer
         {
             modelBuilder.Entity<ApplicationUser>().HasMany(a => a.TaskCards).WithRequired(t => t.User)
                 .HasForeignKey(t => t.UserId);
-            modelBuilder.Entity<ApplicationUser>().HasMany(a => a.AssetContainers).WithRequired(t => t.User)
+            modelBuilder.Entity<ApplicationUser>().HasMany(a => a.Assets).WithRequired(t => t.User)
                 .HasForeignKey(t => t.UserId);
             modelBuilder.Entity<ApplicationUser>().HasMany(a => a.CustomerLives).WithRequired(t => t.User)
                 .HasForeignKey(t => t.UserId);

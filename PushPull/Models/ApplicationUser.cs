@@ -20,7 +20,7 @@ namespace PushPull.Models
         }
 
         public virtual ICollection<TaskCard> TaskCards { get; set; }
-        public virtual ICollection<Asset> AssetContainers { get; set; }
+        public virtual ICollection<Asset> Assets { get; set; }
         public virtual ICollection<CustomerLife> CustomerLives { get; set; }
     }
 }
