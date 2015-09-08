@@ -1,0 +1,62 @@
+﻿@using PushPull.Resources
+@model PushPull.ViewModels.TaskCardViewModel
+
+@*<div class="validationMsg">
+    @Html.ValidationSummary()
+</div>*@
+<div class="form-group row">
+    @Html.LabelFor(x => x.Content, new { @class = "col-sm-3 control-label" })
+    <div class="col-sm-9">
+        @Html.TextAreaFor(x => x.Content, new {@class="form-control", @placeholder= Resource.Content, id=Model.Purpose+"_Content"})
+        @Html.ValidationMessageFor(x=>x.Content)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.EisenHowerType, new { @class = "col-sm-3 control-label" })
+    <div class="col-sm-9">
+        @Html.DropDownListFor(m => m.EisenHowerType, Model.EisenHowerTypeList, new { @class = "form-control", @placeholder = Resource.EisenHowerType, id = Model.Purpose + "_EisenHowerType" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.AssetValue, new { @class = "col-sm-3 control-label" })
+    <div class="col-sm-9 row">
+        <div class="col-sm-4">
+            @Html.TextBoxFor(x => x.AssetValue, new { Value = "", @class = "form-control", @placeholder = Resource.SuccessValue, id = Model.Purpose + "_AssetValue" })
+            @Html.ValidationMessageFor(x => x.AssetValue)
+        </div>
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-4">
+            @Html.TextBoxFor(x => x.FailValue, new { Value = "", @class = "form-control", @placeholder = Resource.FailValue, id = Model.Purpose + "_FailValue" })
+            @Html.ValidationMessageFor(x => x.FailValue)
+        </div>
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.AssetType, new { @class = "col-sm-3 control-label" })
+    <div class="col-sm-9 row">
+        <div class="col-sm-6">
+            @Html.TextBoxFor(x => x.AssetType, new { @class = "form-control", @placeholder = Resource.ValueType, id = Model.Purpose + "_ValueType" })
+            @Html.ValidationMessageFor(x => x.AssetType)
+        </div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(x => x.ValueUnit, new { @class = "form-control", @placeholder = Resource.ValueUnit, id = Model.Purpose + "_ValueUnit" })
+            @Html.ValidationMessageFor(x => x.ValueUnit)
+        </div>
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Deadline, new { @class = "col-sm-3 control-label" })
+    <div class="col-sm-9">
+        <div class='input-group col-sm-5'>
+            @Html.TextBoxFor(x => x.Deadline, new { @class = "form-control modal-datepicker", @placeholder = Resource.Deadline, id = Model.Purpose + "_Deadline" })
+            @Html.ValidationMessageFor(x => x.Deadline)
+        </div>
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Tag, new { @class = "col-sm-3 control-label" })
+    <div class="col-sm-9">
+        @Html.TextBoxFor(x => x.Tag, new { @class = "form-control", @placeholder = Resource.Tag, id = Model.Purpose + "_Tag" })
+    </div>
+</div>

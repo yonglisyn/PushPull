@@ -1,0 +1,10 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/* error msg */
+.msg { padding: 10px; }
+.msg-success { background-color: #dff0d8;border-color: #d6e9c6;color: #3c763d;}
+.msg-error{ background-color: #f2dede;border-color: #ebccd1;color: #a94442;}
+
+.logo{text-shadow: #c8c8c8 1px 1px 0px, #b4b4b4 0px 2px 0px, #a0a0a0 0px 3px 0px, rgba(140, 140, 140, 0.498039) 0px 4px 0px, #787878 0px 0px 0px, rgba(0, 0, 0, 0.498039) 0px 5px 10px;
+}

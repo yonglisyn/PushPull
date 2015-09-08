@@ -1,0 +1,376 @@
+﻿@using PushPull.Resources
+@using PushPull.ViewModels
+@model TaskListViewModel
+
+@{
+    ViewBag.Title = "Task";
+}
+
+<link href="@Url.Content("~/Content/taskanimation.css")" rel="stylesheet"/>
+<link href="@Url.Content("~/Content/taskList.css")" rel="stylesheet"/>
+<link href="@Url.Content("~/Content/jquery-1.11-ui.min.css")" rel="stylesheet"/>
+<style>
+    .modal-message.modal-success .modal-header {
+        color: #53a93f;
+        border-bottom: 3px solid #a0d468;
+    }
+    .modal-message.modal-danger .modal-header {
+        color: #d73d32;
+        border-bottom: 3px solid #e46f61;
+    }
+
+    .modal-message .modal-dialog {
+        width: 300px;
+    }
+
+    .modal-message .modal-body, .modal-message .modal-footer, .modal-message .modal-header, .modal-message .modal-title {
+        background: 0 0;
+        border: none;
+        margin: 0;
+        padding: 0 20px;
+        text-align: center !important;
+    }
+</style>
+<style>
+    .modal-datepicker {
+        z-index: 1151 !important;
+    }
+    .ui-datepicker-month, .ui-datepicker-year {
+        color: #000;
+    }
+</style>
+
+<div class="container">
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="row row-eq-heightt">
+            <div class="col-sm-4">
+                <h3>Task Management</h3>
+            </div>
+            <div class="col-sm-8">
+                <span data-toggle="modal" data-target="#taskcardAddModal" title="Add task" href="#">
+                    <button class="btn-success" type="button" id="BtnAddTask">@Resource.AddNewTask</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <hr />
+    <div class="row" style="overflow-y: auto">
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading clickable">
+                    <h3 class="panel-title">Panel 1</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body">
+                    <ul class="thumbnails" id="iuTaskList">
+                        @{
+                            foreach (var taskCard in Model.IuTaskCards)
+                            {
+                                <li class="col-lg-6 col-sm-6 col-md-12 col-xs-6" id="@taskCard.TaskId">
+                                    @{ Html.RenderPartial("_TaskCard", taskCard);}
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading clickable">
+                    <h3 class="panel-title">Panel 2</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body">
+                    <ul class="thumbnails" id="inuTaskList">
+                        @{
+                            foreach (var taskCard in Model.InuTaskCards)
+                            {
+                                <li class="col-lg-6 col-sm-6 col-xs-6" id="@taskCard.TaskId">
+                                    @{ Html.RenderPartial("_TaskCard", taskCard); }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-warning">
+                <div class="panel-heading clickable">
+                    <h3 class="panel-title">Panel 3</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body">
+                    <ul class="thumbnails" id="niuTaskList">
+                        @{
+                            foreach (var taskCard in Model.NiuTaskCards)
+                            {
+                                <li class="col-lg-6 col-sm-6 col-xs-6" id="@taskCard.TaskId">
+                                    @{ Html.RenderPartial("_TaskCard", taskCard); }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-danger">
+                <div class="panel-heading clickable">
+                    <h3 class="panel-title">Panel 4</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body">
+                    <ul class="thumbnails" id="ninuTaskList">
+                        @{
+                            foreach (var taskCard in Model.NinuTaskCards)
+                            {
+                                <li class="col-lg-6 col-sm-6 col-xs-6" id="@taskCard.TaskId">
+                                    @{ Html.RenderPartial("_TaskCard", taskCard); }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="taskcardEditModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="editModalLabel">Edit Task</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editTaskForm" name="editTaskForm" class="form-horizontal" role="form">
+                    <div>
+                        <input type="hidden" name="TaskId" id="TaskId"/>
+                    </div>
+                    @{ Html.RenderPartial("_TaskCardEditForm", new TaskCardViewModel{Purpose = "Edit"});}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onclick="saveTask()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="taskcardAddModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addModalLabel">Add new task</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addTaskForm" name="addTaskForm" class="form-horizontal" role="form">
+                    @{ Html.RenderPartial("_TaskCardEditForm", new TaskCardViewModel{Purpose = "Add"});}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onclick="addTask()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@Html.Partial("_ModalSuccess")
+@Html.Partial("_ModalFail")
+
+
+
+<script type="text/javascript">
+    $('#addTaskForm input[name="Deadline"]').datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: '+0d',
+        changeMonth: true,
+        changeYear: true,
+        todayHighligh: true,
+        onSelect: function (dataText) {
+            $(this).val(dataText);
+        },
+        onClose: function () { $(this).valid(); }
+    });
+    $('#editTaskForm input[name="Deadline"]').datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: '+0d',
+        changeMonth: true,
+        changeYear: true,
+        todayHighligh: true,
+        onSelect: function (dataText) {
+            $(this).val(dataText);
+        },
+        onClose: function () { $(this).valid(); }
+    });
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.panel-heading.clickable').click(function() {
+            var $this = $(this);
+            if (!$this.hasClass('panel-collapsed')) {
+                $this.parents('.panel').find('.panel-body').slideUp();
+                $this.addClass('panel-collapsed');
+                $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+            } else {
+                $this.parents('.panel').find('.panel-body').slideDown();
+                $this.removeClass('panel-collapsed');
+                $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#taskcardEditModal').on('show.bs.modal', function(event) {
+            var task = $(event.relatedTarget);
+            var content = task.data('content');
+            var deadline = task.data('deadline');
+            var id = task.data('id');
+            var tasktype = task.data('tasktype');
+            var assettype = task.data('assettype');
+            var valueunit = task.data('valueunit');
+            var assetvalue = task.data('assetvalue');
+            var failvalue = task.data('failvalue');
+            var tag = task.data('tag');
+            var form = $('#editTaskForm');
+            $(form).find('[name="TaskId"]').val(id);
+            $(form).find('[name="Content"]').val(content);
+            $(form).find('[name="Deadline"]').val(deadline);
+            $(form).find('[name="TaskType"]').val(tasktype);
+            $(form).find('[name="AssetValue"]').val(assetvalue);
+            $(form).find('[name="FailValue"]').val(failvalue);
+            $(form).find('[name="AssetType"]').val(assettype);
+            $(form).find('[name="ValueUnit"]').val(valueunit);
+            $(form).find('[name="Tag"]').val(tag);
+            $('#editTaskForm').attr("name", "editTaskForm" + id);
+        });
+
+        $('#taskcardEditModal').on('hidden.bs.modal', function() {
+            $(form).find('[name="validationMsg"]').hide();
+        });
+
+        $('#taskcardAddModal').on('show.bs.modal', function () {
+            var datePicker = $("#addTaskForm").find('[name="Deadline"]');
+            $(datePicker).datepicker();
+            $(datePicker).datepicker({
+                dateFormat: "dd/mm/yy",
+                onClose: function () { $(this).valid(); }
+            }).datepicker("setDate", new Date());
+        });
+    });
+
+    function addTask() {
+        var form = $('#addTaskForm');
+        if (!form.valid()) {
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Add","Task")',
+            async: true,
+            data: form.serialize(),
+            dataType: "json",
+            success:function(response) {
+                if (response.Status === 0) {
+                    addSuccess(response.Data, response.TaskId,response.TargetId);
+                } else {
+                    $('#addTaskForm').html(response.Data);
+                }
+            }
+        });
+        
+    }
+    
+    function saveTask() {
+        var form = $("#editTaskForm");
+        if (!form.valid()) {
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Task/Edit",
+            async: true,
+            data: $("#editTaskForm").serialize(),
+            dataType: "json",
+            success: function(response) {
+                if (response.Status === 0) {
+                    UpdateSuccess(response.Data,response.TaskId,response.TargetId);
+                } else {
+                    $('#editTaskForm').html(response.Data);
+                }
+            }
+        });
+    }
+
+    function UpdateSuccess(data,taskId,targetId) {
+        $('#taskcardEditModal').modal('hide');
+        $("#modal-success").modal('show');
+        var parentId = $('#' + taskId).parent().attr('id');
+        if (parentId === targetId) {
+            $("#" + taskId).html(data);
+        } else {
+            $("#" + taskId).remove();
+            $("#" + targetId).append('<li class="col-lg-6 col-sm-6 col-xs-6" id="' + taskId + '">' + data + '</li>');
+        }
+
+    }
+    function addSuccess(data,taskId,targetId) {
+        $('#taskcardAddModal').modal('hide');
+        $("#modal-success").modal('show');
+        $("#" + targetId).append('<li class="col-lg-6 col-sm-6 col-xs-6" id="' + taskId + '">' + data + '</li>');
+    }
+
+    function removeTask(id) {
+        if (id == null) {
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Delete","Task")',
+            async: true,
+            data: {'taskId':id},
+            success:function(response) {
+                if (response.Status === 0) {
+                    removeSuccess(id);
+                } else {
+                    $("#modal-fail").modal('show');
+                }
+            }
+        });
+
+    }
+
+    function removeSuccess(id) {
+        $("#modal-success").modal('show');
+        $('#modal-success').on('hidden.bs.modal', function() {
+            var item = $('#' + id);
+            item.addClass('removed-item')
+                .one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
+                    $(this).remove();
+                });
+
+        });
+
+    }
+
+    function SetTaskComplete(id) {
+        $('#' + id).find("[name='taskComplete-alert']").delay(200).addClass("in").slideUp(3000);
+    }
+</script>
