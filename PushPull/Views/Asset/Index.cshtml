@@ -8,6 +8,11 @@
         background: #26c281;
         background-color: #26c281;
     }
+    .red-bg {
+        color: #fff;
+        background: #dc143c;
+        background-color: #dc143c;
+    }
 
     .info-box {
         min-height: 140px;
@@ -64,15 +69,15 @@
                 <div class="col-md-offset-2 col-md-3">
                     <div class="info-box green-bg">
                         <i class="fa fa-cubes"></i>
-                        <div class="count">1.426</div>
-                        <div class="title">Stock</div>
+                        <div class="count">@Model.MoneyPullAssets.AssetValue</div>
+                        <div class="title">@Resource.PullAssetValue</div>
                     </div><!--/.info-box-->
                 </div>
                 <div class="col-md-offset-3 col-md-3">
-                    <div class="info-box green-bg">
+                    <div class="info-box red-bg">
                         <i class="fa fa-cubes"></i>
-                        <div class="count">1.426</div>
-                        <div class="title">Stock</div>
+                        <div class="count">@Model.MoneyPushAssets.AssetValue</div>
+                        <div class="title">@Resource.PullAssetValue</div>
                     </div><!--/.info-box-->
                 </div>
             </div>
@@ -80,13 +85,25 @@
     </div>
 
     <div class="row" style="overflow-y: auto">
-        <div class="col-md-12">
-            <div class="panel panel-info">
-                <div class="panel-heading clickable">
-                    <h3 class="panel-title">@Resource.TimeAsset</h3>
-                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+        <div class="panel panel-info">
+            <div class="panel-heading clickable">
+                <h3 class="panel-title">@Resource.TimeAsset</h3>
+                <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-offset-2 col-md-3">
+                    <div class="info-box green-bg">
+                        <i class="fa fa-cubes"></i>
+                        <div class="count">@Model.TimePullAssets.AssetValue</div>
+                        <div class="title">@Resource.PullAssetValue</div>
+                    </div><!--/.info-box-->
                 </div>
-                <div class="panel-body">
+                <div class="col-md-offset-3 col-md-3">
+                    <div class="info-box red-bg">
+                        <i class="fa fa-cubes"></i>
+                        <div class="count">@Model.TimePushAssets.AssetValue</div>
+                        <div class="title">@Resource.PushAssetValue</div>
+                    </div><!--/.info-box-->
                 </div>
             </div>
         </div>

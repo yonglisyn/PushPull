@@ -178,6 +178,24 @@ namespace PushPull.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pull asset.
+        /// </summary>
+        public static string PullAssetValue {
+            get {
+                return ResourceManager.GetString("PullAssetValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Push asset.
+        /// </summary>
+        public static string PushAssetValue {
+            get {
+                return ResourceManager.GetString("PushAssetValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Success value.
         /// </summary>
         public static string SuccessValue {

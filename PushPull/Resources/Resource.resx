@@ -168,6 +168,12 @@
   <data name="MoneyAsset" xml:space="preserve">
     <value>Money Asset</value>
   </data>
+  <data name="PullAssetValue" xml:space="preserve">
+    <value>Pull asset</value>
+  </data>
+  <data name="PushAssetValue" xml:space="preserve">
+    <value>Push asset</value>
+  </data>
   <data name="TimeAsset" xml:space="preserve">
     <value>Time Asset</value>
   </data>

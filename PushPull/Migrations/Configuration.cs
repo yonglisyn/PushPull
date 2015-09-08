@@ -234,7 +234,7 @@ namespace PushPull.Migrations
                 },
                 new Asset
                 {
-                    AssetType = AssetType.Money,
+                    AssetType = AssetType.Time,
                     AssetPurpose = AssetPurpose.Pull,
                     AssetValue = 109,
                     UserId = 1,
