@@ -12,8 +12,8 @@
 //        private readonly Card _MoneyCard = new Card()
 //        {
 //            AssetType = AssetType.Money,
-//            AssetValue = 500,
-//            FailValue = 300,
+//            PullValue = 500,
+//            PushValue = 300,
 //            Status = CardStatus.Started,
 //            ValueUnit = "$"
 //        };
@@ -21,8 +21,8 @@
 //        private Card _TimeCard = new Card()
 //        {
 //            AssetType = AssetType.Time,
-//            AssetValue = 1,
-//            FailValue = 1,
+//            PullValue = 1,
+//            PushValue = 1,
 //            Status = CardStatus.Started,
 //            ValueUnit = "h"
 //        };

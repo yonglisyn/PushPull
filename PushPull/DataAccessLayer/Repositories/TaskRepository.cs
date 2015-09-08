@@ -64,7 +64,7 @@ namespace PushPull.DataAccessLayer.Repositories
                 return taskCard;
             }
         }
-        public async Task UpdateStatus(long taskCardId, CardStatus status)
+        public async Task<TaskCard> UpdateStatus(long taskCardId, CardStatus status)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -72,6 +72,7 @@ namespace PushPull.DataAccessLayer.Repositories
                 var taskCard = db.Set<TaskCard>().First(x => x.TaskId == taskCardId);
                 taskCard.Card.Status = status;
                 await db.SaveChangesAsync();
+                return taskCard;
             }
         }
     }

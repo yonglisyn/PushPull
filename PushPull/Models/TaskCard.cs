@@ -15,8 +15,8 @@ namespace PushPull.Models
             {
                 Content = form.Content,
                 AssetType = AssetType.Time,
-                AssetValue = form.AssetValue,
-                FailValue = form.FailValue,
+                PullValue = form.AssetValue,
+                PushValue = form.FailValue,
                 ValueUnit = form.ValueUnit,
                 Status = CardStatus.NotStarted,
                 Tag = form.Tag
@@ -36,5 +36,10 @@ namespace PushPull.Models
         public string ModifiedBy { get; set; }
         
         public virtual ApplicationUser User { get; set; }
+
+        public bool IsPull()
+        {
+            return (Card.Status == CardStatus.Completed);
+        }
     }
 }

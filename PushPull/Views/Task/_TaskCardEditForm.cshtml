@@ -21,13 +21,13 @@
     @Html.LabelFor(x => x.AssetValue, new { @class = "col-sm-3 control-label" })
     <div class="col-sm-9 row">
         <div class="col-sm-4">
-            @Html.TextBoxFor(x => x.AssetValue, new { Value = "", @class = "form-control", @placeholder = Resource.SuccessValue, id = Model.Purpose + "_AssetValue" })
+            @Html.TextBoxFor(x => x.AssetValue, new { Value = "", @class = "form-control", @placeholder = Resource.SuccessValue, id = Model.Purpose + "_PullValue" })
             @Html.ValidationMessageFor(x => x.AssetValue)
         </div>
         <div class="col-sm-1">
         </div>
         <div class="col-sm-4">
-            @Html.TextBoxFor(x => x.FailValue, new { Value = "", @class = "form-control", @placeholder = Resource.FailValue, id = Model.Purpose + "_FailValue" })
+            @Html.TextBoxFor(x => x.FailValue, new { Value = "", @class = "form-control", @placeholder = Resource.FailValue, id = Model.Purpose + "_PushValue" })
             @Html.ValidationMessageFor(x => x.FailValue)
         </div>
     </div>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -21,15 +22,18 @@ namespace PushPull.Controllers
         public TaskController()
         {
             TaskRepository = new TaskRepository();
+            AssetRepository = new AssetRepository();
         }
 
         public TaskController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
+            AssetRepository = new AssetRepository();
             TaskRepository = new TaskRepository();
         }
 
         public ITaskRepository TaskRepository { get; set; }
+        public IAssetRepository AssetRepository { get; set; }
 
         private ApplicationUserManager _UserManager;
         public ApplicationUserManager UserManager
@@ -196,7 +200,8 @@ namespace PushPull.Controllers
             {
                 try
                 {
-                    await TaskRepository.UpdateStatus(taskId,CardStatus.Completed);
+                    var taskCard = await TaskRepository.UpdateStatus(taskId,CardStatus.Completed);
+                    await UpdateAsset(taskCard, User.Identity);
                     return Json(new
                     {
                         Status = ResponseStatus.Success,
@@ -222,7 +227,8 @@ namespace PushPull.Controllers
             {
                 try
                 {
-                    await TaskRepository.UpdateStatus(taskId,CardStatus.Failed);
+                    var taskCard = await TaskRepository.UpdateStatus(taskId, CardStatus.Failed);
+                    await UpdateAsset(taskCard, User.Identity);
                     return Json(new
                     {
                         Status = ResponseStatus.Success,
@@ -239,6 +245,23 @@ namespace PushPull.Controllers
             {
                 Status = ResponseStatus.Fail,
             });
+        }
+
+        private async Task UpdateAsset(TaskCard taskCard, IIdentity identity)
+        {
+            var userId = identity.GetUserId<int>();
+            var isPull = taskCard.IsPull();
+            var card = taskCard.Card;
+            var asset = new Asset
+            {
+                AssetType = card.AssetType,
+                AssetPurpose = isPull ? AssetPurpose.Pull : AssetPurpose.Push,
+                AssetValue = isPull ? card.PullValue : card.PushValue,
+                UserId = userId,
+                ModifiedBy = identity.Name,
+                ModifiedOn = DateTime.Now
+            };
+            await AssetRepository.UpdateAssetAsync(asset);
         }
     }
 }

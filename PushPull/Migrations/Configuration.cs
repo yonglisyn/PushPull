@@ -37,8 +37,8 @@ namespace PushPull.Migrations
                         {
                             Content = "Seed data Hello World",
                             AssetType = AssetType.Money,
-                            AssetValue = 10,
-                            FailValue = 10,
+                            PullValue = 10,
+                            PushValue = 10,
                             Status = CardStatus.NotStarted,
                             Tag = "Seed",
                             ValueUnit = "$"
@@ -56,8 +56,8 @@ namespace PushPull.Migrations
                         {
                             Content = "Seed data Hello World2",
                             AssetType = AssetType.Money,
-                            AssetValue = 10,
-                            FailValue = 10,
+                            PullValue = 10,
+                            PushValue = 10,
                             Status = CardStatus.NotStarted,
                             Tag = "Seed",
                             ValueUnit = "$"
@@ -75,8 +75,8 @@ namespace PushPull.Migrations
                         {
                             Content = "Seed data Hello World3",
                             AssetType = AssetType.Money,
-                            AssetValue = 10,
-                            FailValue = 10,
+                            PullValue = 10,
+                            PushValue = 10,
                             Status = CardStatus.NotStarted,
                             Tag = "Seed",
                             ValueUnit = "$"
@@ -94,8 +94,8 @@ namespace PushPull.Migrations
                         {
                             Content = "Seed data Hello World 4",
                             AssetType = AssetType.Money,
-                            AssetValue = 10,
-                            FailValue = 10,
+                            PullValue = 10,
+                            PushValue = 10,
                             Status = CardStatus.NotStarted,
                             Tag = "Seed",
                             ValueUnit = "$"
@@ -113,8 +113,8 @@ namespace PushPull.Migrations
                         {
                             Content = "Seed data Hello World 5",
                             AssetType = AssetType.Money,
-                            AssetValue = 10,
-                            FailValue = 10,
+                            PullValue = 10,
+                            PushValue = 10,
                             Status = CardStatus.Completed,
                             Tag = "Seed",
                             ValueUnit = "$"
@@ -132,8 +132,8 @@ namespace PushPull.Migrations
                         {
                             Content = "Seed data Hello World 6",
                             AssetType = AssetType.Money,
-                            AssetValue = 10,
-                            FailValue = 10,
+                            PullValue = 10,
+                            PushValue = 10,
                             Status = CardStatus.Completed,
                             Tag = "Seed",
                             ValueUnit = "$"
@@ -151,8 +151,8 @@ namespace PushPull.Migrations
                         {
                             Content = "Seed data Hello World 7",
                             AssetType = AssetType.Money,
-                            AssetValue = 10,
-                            FailValue = 10,
+                            PullValue = 10,
+                            PushValue = 10,
                             Status = CardStatus.Completed,
                             Tag = "Seed",
                             ValueUnit = "$"
@@ -170,8 +170,8 @@ namespace PushPull.Migrations
                         {
                             Content = "Seed data Hello World 8",
                             AssetType = AssetType.Money,
-                            AssetValue = 10,
-                            FailValue = 10,
+                            PullValue = 10,
+                            PushValue = 10,
                             Status = CardStatus.Completed,
                             Tag = "Seed",
                             ValueUnit = "$"
@@ -189,8 +189,8 @@ namespace PushPull.Migrations
                         {
                             Content = "Seed data Hello World 9",
                             AssetType = AssetType.Money,
-                            AssetValue = 10,
-                            FailValue = 10,
+                            PullValue = 10,
+                            PushValue = 10,
                             Status = CardStatus.Failed,
                             Tag = "Seed",
                             ValueUnit = "$"
@@ -235,7 +235,7 @@ namespace PushPull.Migrations
                 new Asset
                 {
                     AssetType = AssetType.Time,
-                    AssetPurpose = AssetPurpose.Pull,
+                    AssetPurpose = AssetPurpose.Push,
                     AssetValue = 109,
                     UserId = 1,
                     ModifiedOn = DateTime.Today,

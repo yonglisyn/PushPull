@@ -13,6 +13,6 @@ namespace PushPull.DataAccessLayer.Repositories.Interfaces
         Task AddTaskCardAsync(TaskCard taskCard);
         Task RemoveTaskCardAsync(long taskCardId);
         Task<TaskCard> EditTaskCardAsync(TaskCard taskCard);
-        Task UpdateStatus(long taskCardId, CardStatus status);
+        Task<TaskCard> UpdateStatus(long taskCardId, CardStatus status);
     }
 }

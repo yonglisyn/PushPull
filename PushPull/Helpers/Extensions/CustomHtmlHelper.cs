@@ -12,7 +12,7 @@ namespace PushPull.Helpers.Extensions
                                  data-assetvalue={3} data-failvalue={4} data-tag={5} 
                                  data-content='{6}' data-tasktype={7} data-deadline={8}", 
                                  taskCard.TaskId, taskCard.Card.AssetType, taskCard.Card.ValueUnit,
-                                taskCard.Card.AssetValue,taskCard.Card.FailValue, taskCard.Card.Tag,
+                                taskCard.Card.PullValue,taskCard.Card.PushValue, taskCard.Card.Tag,
                                 taskCard.Card.Content, (int)taskCard.EisenHowerType, DateTimeDisplay(helper,taskCard.DeadLine));
         }
 
