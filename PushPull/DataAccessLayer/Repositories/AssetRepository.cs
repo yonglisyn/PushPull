@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
@@ -10,11 +11,12 @@ namespace PushPull.DataAccessLayer.Repositories
 {
     public class AssetRepository : IAssetRepository
     {
-        public async Task<List<Asset>> GetAssetListAsync(int userId)
+        public async Task<List<Asset>> GetOneWeekAssetListAsync(int userId, DateTime endDate)
         {
             using (var db = new ApplicationDbContext())
             {
-                var assetList = db.Assets.Where(x => x.UserId == userId);
+                var startDate = endDate.AddDays(-6);
+                var assetList = db.Assets.Where(x => x.UserId == userId && x.Date <= endDate && x.Date > startDate);
                 return await assetList.ToListAsync();
             }
         }

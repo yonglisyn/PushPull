@@ -7,5 +7,6 @@ namespace PushPull.Constants
         public static readonly int UsernameLength = 50;
         public static readonly int CommonStringLength = 50;
         public static readonly int PasswordHashLength = 200;
+        public static readonly int OneWeekCount = 7;
     }
 }

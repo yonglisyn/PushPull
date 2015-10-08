@@ -7,7 +7,7 @@ namespace PushPull.DataAccessLayer.Repositories.Interfaces
 {
     public interface IAssetRepository
     {
-        Task<List<Asset>> GetAssetListAsync(int userId);
+        Task<List<Asset>> GetOneWeekAssetListAsync(int userId, DateTime endDate);
         Task UpdateAssetAsync(Asset asset);
     }
 }

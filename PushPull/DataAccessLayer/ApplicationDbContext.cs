@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PushPull.Constants;
@@ -66,11 +67,19 @@ namespace PushPull.DataAccessLayer
         {
             modelBuilder.Entity<TaskCard>().Property(t => t.TaskId)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<TaskCard>().Property(x => x.UserId).HasColumnAnnotation(
+                IndexAnnotation.AnnotationName,
+                new IndexAnnotation(
+                    new IndexAttribute("IX_TaskCard_UserId")));
+
             modelBuilder.Entity<TaskCard>()
                 .Property(t => t.Card.Content)
                 .HasMaxLength(AccountConstSettings.CommonStringLength);
-            modelBuilder.Entity<Asset>().Property(a => a.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<Asset>().HasKey(x => new { x.UserId, x.AssetPurpose,x.AssetType,x.Date});
+            modelBuilder.Entity<Asset>().Property(x => x.UserId).HasColumnAnnotation(
+                IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_Asset_UserId")));
+            modelBuilder.Entity<Asset>().Property(x => x.Date).HasColumnAnnotation(
+                IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_Asset_Date")));
             modelBuilder.Entity<CustomerLife>().Property(a => a.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<ApplicationUser>()
@@ -81,7 +90,6 @@ namespace PushPull.DataAccessLayer
         private static void KeyConfiguration(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TaskCard>().HasKey(t => t.TaskId);
-            modelBuilder.Entity<Asset>().HasKey(a => a.Id);
             modelBuilder.Entity<CustomerLife>().HasKey(a => a.Id);
         }
 

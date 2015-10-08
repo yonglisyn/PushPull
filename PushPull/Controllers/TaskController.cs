@@ -259,7 +259,9 @@ namespace PushPull.Controllers
                 AssetValue = isPull ? card.PullValue : card.PushValue,
                 UserId = userId,
                 ModifiedBy = identity.Name,
-                ModifiedOn = DateTime.Now
+                ModifiedOn = DateTime.Now,
+                Date = DateTime.Today,
+                DayOfWeek = (int)DateTime.Today.DayOfWeek
             };
             await AssetRepository.UpdateAssetAsync(asset);
         }

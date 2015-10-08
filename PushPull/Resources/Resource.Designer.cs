@@ -169,6 +169,24 @@ namespace PushPull.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Friday.
+        /// </summary>
+        public static string Fri {
+            get {
+                return ResourceManager.GetString("Fri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monday.
+        /// </summary>
+        public static string Mon {
+            get {
+                return ResourceManager.GetString("Mon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Money Asset.
         /// </summary>
         public static string MoneyAsset {
@@ -196,11 +214,29 @@ namespace PushPull.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saturday.
+        /// </summary>
+        public static string Sat {
+            get {
+                return ResourceManager.GetString("Sat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Success value.
         /// </summary>
         public static string SuccessValue {
             get {
                 return ResourceManager.GetString("SuccessValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sunday.
+        /// </summary>
+        public static string Sun {
+            get {
+                return ResourceManager.GetString("Sun", resourceCulture);
             }
         }
         
@@ -214,11 +250,29 @@ namespace PushPull.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thursday.
+        /// </summary>
+        public static string Thu {
+            get {
+                return ResourceManager.GetString("Thu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time Asset.
         /// </summary>
         public static string TimeAsset {
             get {
                 return ResourceManager.GetString("TimeAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tuesday.
+        /// </summary>
+        public static string Tue {
+            get {
+                return ResourceManager.GetString("Tue", resourceCulture);
             }
         }
         
@@ -237,6 +291,15 @@ namespace PushPull.Resources {
         public static string ValueUnit {
             get {
                 return ResourceManager.GetString("ValueUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wednesday.
+        /// </summary>
+        public static string Wed {
+            get {
+                return ResourceManager.GetString("Wed", resourceCulture);
             }
         }
     }

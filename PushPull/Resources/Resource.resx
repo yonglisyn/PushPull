@@ -177,4 +177,25 @@
   <data name="TimeAsset" xml:space="preserve">
     <value>Time Asset</value>
   </data>
+  <data name="Fri" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="Mon" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="Sat" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="Sun" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="Thu" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="Tue" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="Wed" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
 </root>

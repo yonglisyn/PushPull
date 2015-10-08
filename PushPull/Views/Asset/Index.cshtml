@@ -1,13 +1,22 @@
 ﻿@using PushPull.Resources
 @model PushPull.Models.AssetViewModel
 <h2>title</h2>
-
+<script src="~/Scripts/Chart.min.js"></script>
 <style>
+    .six-sec-ease-in-out {
+        -webkit-transition: width 3s ease-in-out;
+        -moz-transition: width 3s ease-in-out;
+        -ms-transition: width 3s ease-in-out;
+        -o-transition: width 3s ease-in-out;
+        transition: width 3s ease-in-out;
+    }
+
     .green-bg {
         color: #fff;
-        background: #26c281;
-        background-color: #26c281;
+        background: #18bc9c;
+        background-color: #18bc9c;
     }
+
     .red-bg {
         color: #fff;
         background: #dc143c;
@@ -17,7 +26,8 @@
     .info-box {
         min-height: 140px;
         margin-bottom: 30px;
-        padding: 20px;
+        /*padding: 15px;*/
+        padding-top: 20px;
         color: white;
         -webkit-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
         -moz-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
@@ -27,26 +37,34 @@
         .info-box i {
             display: block;
             height: 100px;
-            font-size: 60px;
+            font-size: 40px;
             line-height: 100px;
-            width: 100px;
             float: left;
             text-align: center;
-            margin-right: 20px;
-            padding-right: 20px;
+            margin-right: 5px;
+            padding-right: 5px;
             color: rgba(255, 255, 255, 0.75);
         }
 
         .info-box .count {
-            margin-top: 20px;
+            margin-top: 15px;
             font-size: 34px;
             font-weight: 700;
         }
+
         .info-box .title {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             font-weight: 600;
         }
+
+    .nav-tabs > li.lineChartTab.active > a,
+    .nav-tabs > li.lineChartTab.active > a:hover,
+    .nav-tabs > li.lineChartTab.active > a:focus {
+        background-color: #18bc9c;
+        color: #fff;
+    }
+
 </style>
 
 <div class="container">
@@ -66,24 +84,46 @@
                 <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
             </div>
             <div class="panel-body">
-                <div class="col-md-offset-2 col-md-3">
-                    <div class="info-box green-bg">
-                        <i class="fa fa-cubes"></i>
-                        <div class="count">@Model.MoneyPullAssets.AssetValue</div>
-                        <div class="title">@Resource.PullAssetValue</div>
-                    </div><!--/.info-box-->
+                <div class="col-md-6">
+                    <hr/>
+                    <div class="row" id="moneyPullBox">
+                        <div class="info-box green-bg col-lg-4">
+                            <i class="fa fa-cubes"></i>
+                            <div class="count"></div>
+                            <div class="title">@Resource.PullAssetValue</div>
+                        </div><!--/.info-box-->
+                        <div id="moneyPullPb" class="col-lg-8 six-sec-ease-in-out" role="progressbar"
+                             aria-valuenow="@Model.MoneyPullAssetTotalValue" style="width: 0%">
+                            <div class="green-bg ">
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" id="moneyPushBox">
+                        <div class="info-box red-bg col-lg-4">
+                            <i class="fa fa-cubes"></i>
+                            <div class="count"></div>
+                            <div class="title">@Resource.PushAssetValue</div>
+                        </div><!--/.info-box-->
+                        <div id="moneyPushPb" class="six-sec-ease-in-out  col-lg-8" role="progressbar"
+                             aria-valuenow="@Model.MoneyPushAssetTotalValue" style="width: 0%">
+                            <div class="red-bg">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-offset-3 col-md-3">
-                    <div class="info-box red-bg">
-                        <i class="fa fa-cubes"></i>
-                        <div class="count">@Model.MoneyPushAssets.AssetValue</div>
-                        <div class="title">@Resource.PullAssetValue</div>
-                    </div><!--/.info-box-->
+                <div class="col-md-6">
+                    <ul class="nav nav-tabs">
+                        <li data-mode="dailyTotal" data-target="moneyChart" class="active moneyChartTab lineChartTab"><a href="#" data-toggle="tab">Daily Total</a></li>
+                        <li data-mode="daily" data-target="moneyChart" class="moneyChartTab lineChartTab"><a href="#" class="" data-toggle="tab">Daily</a></li>
+                    </ul>
+                    <div style="padding-top: 15px">
+                        <canvas id="moneyChart" style="width: 600px; height: 400px"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="row" style="overflow-y: auto">
         <div class="panel panel-info">
             <div class="panel-heading clickable">
@@ -91,21 +131,112 @@
                 <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
             </div>
             <div class="panel-body">
-                <div class="col-md-offset-2 col-md-3">
-                    <div class="info-box green-bg">
-                        <i class="fa fa-cubes"></i>
-                        <div class="count">@Model.TimePullAssets.AssetValue</div>
-                        <div class="title">@Resource.PullAssetValue</div>
-                    </div><!--/.info-box-->
+                <div class="col-md-6">
+                    <hr />
+                    <div class="row" id="timePullBox">
+                        <div class="info-box green-bg col-lg-4">
+                            <i class="glyphicon glyphicon-time"></i>
+                            <div class="count"></div>
+                            <div class="title">@Resource.PullAssetValue</div>
+                        </div><!--/.info-box-->
+                        <div id="moneyTimePb" class="col-lg-8 six-sec-ease-in-out" role="progressbar"
+                             aria-valuenow="@Model.TimePullAssetTotalValue" style="width: 0%">
+                            <div class="green-bg ">
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row" id="timePushBox">
+                        <div class="info-box red-bg col-lg-4">
+                            <i class="glyphicon glyphicon-time"></i>
+                            <div class="count"></div>
+                            <div class="title">@Resource.PushAssetValue</div>
+                        </div><!--/.info-box-->
+                        <div id="timePushPb" class="six-sec-ease-in-out  col-lg-8" role="progressbar"
+                             aria-valuenow="@Model.TimePushAssetTotalValue" style="width: 0%">
+                            <div class="red-bg">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-offset-3 col-md-3">
-                    <div class="info-box red-bg">
-                        <i class="fa fa-cubes"></i>
-                        <div class="count">@Model.TimePushAssets.AssetValue</div>
-                        <div class="title">@Resource.PushAssetValue</div>
-                    </div><!--/.info-box-->
+                <div class="col-md-6">
+                    <ul class="nav nav-tabs">
+                        <li data-mode="dailyTotal" data-target="timeChart" class="active timeChartTab lineChartTab"><a href="#" data-toggle="tab">Daily Total</a></li>
+                        <li data-mode="daily" data-target="timeChart" class="timeChartTab lineChartTab"><a href="#" class="" data-toggle="tab">Daily</a></li>
+                    </ul>
+                    <div style="padding-top: 15px">
+                        <canvas id="timeChart" style="width: 600px; height: 400px"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        drawChart("moneyChart", '@Html.Raw(Model.MoneyPullChart)', '@Html.Raw(Model.MoneyPushChart)');
+        drawChart("timeChart", '@Html.Raw(Model.TimePullChart)', '@Html.Raw(Model.TimePushChart)');
+    });
+    $(document).ready(function () {
+        $('.moneyChartTab').on('click',function(event) {
+            var tab = $(this);
+            var mode = tab.data('mode');
+            var target = tab.data('target');
+            drawChart(target, '@Html.Raw(Model.MoneyPullChart)', '@Html.Raw(Model.MoneyPushChart)',mode);
+        });
+        $('.timeChartTab').on('click',function(event) {
+            var tab = $(this);
+            var mode = tab.data('mode');
+            var target = tab.data('target');
+            drawChart(target, '@Html.Raw(Model.TimePullChart)', '@Html.Raw(Model.TimePushChart)',mode);
+        });
+    });
+    $(document).ready(function () {
+        progessBar('moneyPullPb', 'moneyPullBox', 'green-bg', '@Model.MoneyPullAssetTotalValue', '@Model.MoneyPullAssetPercentage' + '%');
+        progessBar('moneyPushPb', 'moneyPushBox', 'red-bg', '@Model.MoneyPushAssetTotalValue', '@Model.MoneyPushAssetPercentage' + '%');
+        progessBar('timePullPb', 'timePullBox', 'green-bg', '@Model.TimePullAssetTotalValue', '@Model.TimePullAssetPercentage' + '%');
+        progessBar('timePushPb', 'timePushBox', 'red-bg', '@Model.TimePushAssetTotalValue', '@Model.TimePushAssetPercentage' + '%');
+    });
+
+    function progessBar(id,boxId,colorClass,endValue,percentage) {
+        $('#'+id).attr('style', 'width:' + percentage);
+        $('#' + id + ' .' + colorClass).addClass('info-box');
+        $('#' + id).progressbar();
+        var count = $('#'+boxId + ' .count');
+        $({ pbValue: 0 }).stop(true).animate({ pbValue: endValue }, {
+            duration: 3000,
+            easing: "easeOutQuad",
+            step: function () {
+                var tmpValue = this.pbValue > 10000 ? Math.round(this.pbValue / 1000) + 'K' : Math.round(this.pbValue * 10 / 10);
+                count.text(tmpValue);
+            }
+        }).promise().done(function () {
+            var tmpValue = endValue > 10000 ? Math.round(this.pbValue / 1000) + 'K' : Math.round(endValue * 10 / 10);
+            count.text(tmpValue);
+        });
+    }
+
+    function drawChart(id, pull, push,mode) {
+        var lable = [@Html.Raw(string.Join(",", Model.Lables.Select(x => "'" + x + "'")))];
+        var pullData = $.parseJSON(pull);
+        pullData.data = mode == 'daily' ? pullData.dailyData : pullData.integratedData;
+        var pushData = $.parseJSON(push);
+        pushData.data = mode == 'daily' ? pushData.dailyData : pushData.integratedData;
+        var moneyData = {
+            labels: lable,
+            datasets: [
+                pullData,
+                pushData
+            ]
+        };
+        console.log(moneyData.datasets);
+        var ctx = document.getElementById(id).getContext("2d");
+        new Chart(ctx).Line(moneyData,
+        {
+            bezierCurve: false,
+            animationSteps: 100,
+            animationEasing: 'easeOutQuad'
+        });
+    };
+
+</script>
