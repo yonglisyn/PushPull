@@ -70,11 +70,38 @@ namespace PushPull.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to exclude tasks without deadlin.
+        /// </summary>
+        public static string ClickExcludeNoDeadLine {
+            get {
+                return ResourceManager.GetString("ClickExcludeNoDeadLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to include tasks without deadlin.
+        /// </summary>
+        public static string ClickIncludeNoDeadLine {
+            get {
+                return ResourceManager.GetString("ClickIncludeNoDeadLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot be longer than 50 characters.
         /// </summary>
         public static string CommonStringMaxLength {
             get {
                 return ResourceManager.GetString("CommonStringMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed Task.
+        /// </summary>
+        public static string CompletedTask {
+            get {
+                return ResourceManager.GetString("CompletedTask", resourceCulture);
             }
         }
         
@@ -160,6 +187,15 @@ namespace PushPull.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed Task.
+        /// </summary>
+        public static string FailedTask {
+            get {
+                return ResourceManager.GetString("FailedTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fail value.
         /// </summary>
         public static string FailValue {
@@ -192,6 +228,15 @@ namespace PushPull.Resources {
         public static string MoneyAsset {
             get {
                 return ResourceManager.GetString("MoneyAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending Task.
+        /// </summary>
+        public static string PendingTask {
+            get {
+                return ResourceManager.GetString("PendingTask", resourceCulture);
             }
         }
         
@@ -246,6 +291,15 @@ namespace PushPull.Resources {
         public static string Tag {
             get {
                 return ResourceManager.GetString("Tag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task Report.
+        /// </summary>
+        public static string TaskReport {
+            get {
+                return ResourceManager.GetString("TaskReport", resourceCulture);
             }
         }
         

@@ -1,0 +1,146 @@
+﻿@using PushPull.Resources
+@model PushPull.ViewModels.ReportViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>title</h2>
+<script src="~/Scripts/Chart.min.js"></script>
+<style>
+    .six-sec-ease-in-out {
+        -webkit-transition: width 3s ease-in-out;
+        -moz-transition: width 3s ease-in-out;
+        -ms-transition: width 3s ease-in-out;
+        -o-transition: width 3s ease-in-out;
+        transition: width 3s ease-in-out;
+    }
+
+    .green-bg {
+        color: #fff;
+        background: #18bc9c;
+        background-color: #18bc9c;
+    }
+
+    .red-bg {
+        color: #fff;
+        background: #dc143c;
+        background-color: #dc143c;
+    }
+
+    .info-box {
+        min-height: 140px;
+        margin-bottom: 30px;
+        /*padding: 15px;*/
+        padding-top: 20px;
+        color: white;
+        -webkit-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
+        box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
+    }
+
+        .info-box i {
+            display: block;
+            height: 100px;
+            font-size: 40px;
+            line-height: 100px;
+            float: left;
+            text-align: center;
+            margin-right: 5px;
+            padding-right: 5px;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .info-box .count {
+            margin-top: 15px;
+            font-size: 34px;
+            font-weight: 700;
+        }
+
+        .info-box .title {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+    .nav-tabs > li.lineChartTab.active > a,
+    .nav-tabs > li.lineChartTab.active > a:hover,
+    .nav-tabs > li.lineChartTab.active > a:focus {
+        background-color: #18bc9c;
+        color: #fff;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="row row-eq-heightt">
+            <div class="col-sm-4">
+                <h3>Report</h3>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <hr />
+    <div class="row" style="overflow-y: auto">
+        <div class="panel panel-success">
+            <div class="panel-heading clickable">
+                <h3 class="panel-title">@Resource.TaskReport</h3>
+                <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <ul class="nav nav-tabs">
+                        <li data-mode="includeNoDeadline" data-target="totalReportChart" class="active reportChartTab lineChartTab"><a href="#" data-toggle="tab">@Resource.ClickExcludeNoDeadLine</a></li>
+                        <li data-mode="excludeNoDeadline" data-target="totalReportChart" class="reportChartTab lineChartTab"><a href="#" class="" data-toggle="tab">@Resource.ClickIncludeNoDeadLine</a></li>
+                    </ul>
+                    <div style="padding-top: 15px">
+                        <canvas id="totalReportChart" style="width: 600px; height: 400px"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        drawPieChart("totalReportChart", '@Html.Raw(Model.TotalPie)');
+    });
+    $(document).ready(function () {
+        $('.moneyChartTab').on('click',function(event) {
+            var tab = $(this);
+            var mode = tab.data('mode');
+            var target = tab.data('target');
+            drawPieChart(target, '@Html.Raw(Model.TotalPieChart)',mode);
+        });
+        $('.timeChartTab').on('click',function(event) {
+            var tab = $(this);
+            var mode = tab.data('mode');
+            var target = tab.data('target');
+            drawChart(target, '@Html.Raw(Model.TimePullChart)', '@Html.Raw(Model.TimePushChart)',mode);
+        });
+    });
+    function drawPieChart(id, data, mode) {
+        var lable = [@Html.Raw(string.Join(",", Model.Lables.Select(x => "'" + x + "'")))];
+        var pullData = $.parseJSON(pull);
+        pullData.data = mode == 'daily' ? pullData.dailyData : pullData.integratedData;
+        var pushData = $.parseJSON(push);
+        pushData.data = mode == 'daily' ? pushData.dailyData : pushData.integratedData;
+        var moneyData = {
+            labels: lable,
+            datasets: [
+                pullData,
+                pushData
+            ]
+        };
+        console.log(moneyData.datasets);
+        var ctx = document.getElementById(id).getContext("2d");
+        new Chart(ctx).Line(moneyData,
+        {
+            bezierCurve: false,
+            animationSteps: 100,
+            animationEasing: 'easeOutQuad'
+        });
+    };
+
+</script>

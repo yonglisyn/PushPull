@@ -24,6 +24,7 @@ namespace PushPull.DataAccessLayer
         public DbSet<TaskCard> TaksCards { get; set; }
         public DbSet<Asset> Assets { get; set; }
         public DbSet<CustomerLife> CustomerLives { get; set; }
+        public DbSet<TaskReport> Reports { get; set; }
 
         public static ApplicationDbContext Create()
         {
@@ -71,26 +72,36 @@ namespace PushPull.DataAccessLayer
                 IndexAnnotation.AnnotationName,
                 new IndexAnnotation(
                     new IndexAttribute("IX_TaskCard_UserId")));
-
             modelBuilder.Entity<TaskCard>()
                 .Property(t => t.Card.Content)
                 .HasMaxLength(AccountConstSettings.CommonStringLength);
-            modelBuilder.Entity<Asset>().HasKey(x => new { x.UserId, x.AssetPurpose,x.AssetType,x.Date});
+
             modelBuilder.Entity<Asset>().Property(x => x.UserId).HasColumnAnnotation(
                 IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_Asset_UserId")));
             modelBuilder.Entity<Asset>().Property(x => x.Date).HasColumnAnnotation(
                 IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_Asset_Date")));
+            
             modelBuilder.Entity<CustomerLife>().Property(a => a.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            
             modelBuilder.Entity<ApplicationUser>()
                 .Property(t => t.PasswordHash)
                 .HasMaxLength(AccountConstSettings.PasswordHashLength);
+
+            modelBuilder.Entity<TaskReport>().Property(x => x.UserId).HasColumnAnnotation(
+                IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_TaskReport_UserId")));
+            modelBuilder.Entity<TaskReport>().Property(x => x.WeekIndex).HasColumnAnnotation(
+                IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_TaskReport_WeekIndex")));
+            
         }
 
         private static void KeyConfiguration(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TaskCard>().HasKey(t => t.TaskId);
             modelBuilder.Entity<CustomerLife>().HasKey(a => a.Id);
+            modelBuilder.Entity<Asset>().HasKey(x => new { x.UserId, x.AssetPurpose, x.AssetType, x.Date });
+            modelBuilder.Entity<TaskReport>().HasKey(x => new { x.UserId, x.EisenHowerType, x.WeekIndex});
+
         }
 
         private static void CommonConfiguration(DbModelBuilder modelBuilder)
@@ -98,7 +109,6 @@ namespace PushPull.DataAccessLayer
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Properties<string>().Configure(p => p.HasMaxLength(AccountConstSettings.CommonStringLength));
         }
-
 
     }
 }

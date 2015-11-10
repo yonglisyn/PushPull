@@ -198,4 +198,22 @@
   <data name="Wed" xml:space="preserve">
     <value>Wednesday</value>
   </data>
+  <data name="ClickExcludeNoDeadLine" xml:space="preserve">
+    <value>Click to exclude tasks without deadlin</value>
+  </data>
+  <data name="ClickIncludeNoDeadLine" xml:space="preserve">
+    <value>Click to include tasks without deadlin</value>
+  </data>
+  <data name="CompletedTask" xml:space="preserve">
+    <value>Completed Task</value>
+  </data>
+  <data name="FailedTask" xml:space="preserve">
+    <value>Failed Task</value>
+  </data>
+  <data name="PendingTask" xml:space="preserve">
+    <value>Pending Task</value>
+  </data>
+  <data name="TaskReport" xml:space="preserve">
+    <value>Task Report</value>
+  </data>
 </root>

@@ -10,15 +10,7 @@ namespace PushPull.Models
 {
     public class AssetViewModel
     {
-        private JsonSerializerSettings _SerializerSetting = new JsonSerializerSettings
-        {
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
-            NullValueHandling = NullValueHandling.Ignore
-        };
-        private string _RgbaGreen = "rgba(38, 194, 129,0.3)";
-        private string _Green = "#18bc9c";
-        private string _RgbaRed = "rgba(220, 20, 60,0.3)";
-        private string _Red = "#dc143c";
+
         private static Dictionary<int, string> _LabelSource;
         private decimal _MaxPrograssBarPercentage = 0.6m;
         private readonly decimal[] _OneWeekMoneyPullDailyData;
@@ -99,8 +91,8 @@ namespace PushPull.Models
         {
             get
             {
-                var source = new ChartDataSetViewModel(_RgbaGreen, _Green, _OneWeekMoneyPullDailyData);
-                return JsonConvert.SerializeObject(source,_SerializerSetting);
+                var source = new LineChartViewModel(StringConst.RgbaGreen, StringConst.Green, _OneWeekMoneyPullDailyData);
+                return JsonConvert.SerializeObject(source,AccountConstSettings.SerializerSetting);
             }
         }
 
@@ -108,8 +100,8 @@ namespace PushPull.Models
         {
             get
             {
-                var source = new ChartDataSetViewModel(_RgbaRed,_Red,_OneWeekMoneyPushDailyData);
-                return JsonConvert.SerializeObject(source,_SerializerSetting);
+                var source = new LineChartViewModel(StringConst.RgbaRed, StringConst.Red,_OneWeekMoneyPushDailyData);
+                return JsonConvert.SerializeObject(source, AccountConstSettings.SerializerSetting);
             }
         }
 
@@ -117,8 +109,8 @@ namespace PushPull.Models
         {
             get
             {
-                var source = new ChartDataSetViewModel(_RgbaGreen, _Green, _OneWeekTimePullDailyData);
-                return JsonConvert.SerializeObject(source, _SerializerSetting);
+                var source = new LineChartViewModel(StringConst.RgbaGreen, StringConst.Green, _OneWeekTimePullDailyData);
+                return JsonConvert.SerializeObject(source, AccountConstSettings.SerializerSetting);
             }
         }
 
@@ -126,8 +118,8 @@ namespace PushPull.Models
         {
             get
             {
-                var source = new ChartDataSetViewModel(_RgbaRed, _Red, _OneWeekTimePushDailyData);
-                return JsonConvert.SerializeObject(source, _SerializerSetting);
+                var source = new LineChartViewModel(StringConst.RgbaRed, StringConst.Red, _OneWeekTimePushDailyData);
+                return JsonConvert.SerializeObject(source, AccountConstSettings.SerializerSetting);
             }
         }
 
@@ -165,9 +157,9 @@ namespace PushPull.Models
 
     }
 
-    public class ChartDataSetViewModel
+    public class LineChartViewModel
     {
-        public ChartDataSetViewModel(string rgbaColor,string color,decimal[] data)
+        public LineChartViewModel(string rgbaColor,string color,decimal[] data)
         {
             FillColor = rgbaColor;
             StrokeColor = color;
