@@ -198,6 +198,7 @@
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Managers\ApplicationUserManagerBase.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\SeedBank.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -219,7 +220,8 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TaskCard.cs" />
     <Compile Include="Models\Asset.cs" />
-    <Compile Include="Models\TaskReport.cs" />
+    <Compile Include="Models\DailyTaskReport.cs" />
+    <Compile Include="Models\WeeklyTaskReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -232,7 +234,7 @@
     <Compile Include="Validators\CustomUserValidator.cs" />
     <Compile Include="ViewModels\PieChartViewModel.cs" />
     <Compile Include="ViewModels\PushPullJsonResponse.cs" />
-    <Compile Include="ViewModels\ReportViewModel.cs" />
+    <Compile Include="ViewModels\DailyReportViewModel.cs" />
     <Compile Include="ViewModels\TaskCardViewModel.cs" />
     <Compile Include="ViewModels\TaskListViewModel.cs" />
   </ItemGroup>

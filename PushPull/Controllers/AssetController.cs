@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PushPull.Constants;
 using PushPull.DataAccessLayer.Repositories;
+using PushPull.DataAccessLayer.Repositories.Interfaces;
 using PushPull.Enums;
 using PushPull.Models;
 
@@ -13,7 +14,7 @@ namespace PushPull.Controllers
 {
     public class AssetController:Controller 
     {
-        private readonly AssetRepository _AssetRepository;
+        private readonly IAssetRepository _AssetRepository;
 
         public AssetController()
         {

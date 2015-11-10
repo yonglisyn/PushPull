@@ -19,6 +19,8 @@ namespace PushPull.Controllers
     [Authorize]
     public class TaskController : Controller
     {
+        private ApplicationUserManager _UserManager;
+
         public TaskController()
         {
             TaskRepository = new TaskRepository();
@@ -35,17 +37,10 @@ namespace PushPull.Controllers
         public ITaskRepository TaskRepository { get; set; }
         public IAssetRepository AssetRepository { get; set; }
 
-        private ApplicationUserManager _UserManager;
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _UserManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _UserManager = value;
-            }
+            get { return _UserManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _UserManager = value; }
         }
 
         [HttpGet]
@@ -93,18 +88,17 @@ namespace PushPull.Controllers
                     {
                         Status = ResponseStatus.Success,
                         Data = partialHtml,
-                        TaskId = taskCard.TaskId,
+                        taskCard.TaskId,
                         TargetId = GetDisplayTargetId(taskCard.EisenHowerType)
-
                     });
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //todo use elma to log ex
                     ModelState.AddModelError("Exception", "Hi Boss, System is sick. Need MC!");
                 }
             }
-            partialHtml = RenderViewHelper.RenderRazorViewToString(ControllerContext,"_TaskCardEditForm", form);
+            partialHtml = RenderViewHelper.RenderRazorViewToString(ControllerContext, "_TaskCardEditForm", form);
             return Json(new
             {
                 Status = ResponseStatus.Fail,
@@ -133,11 +127,11 @@ namespace PushPull.Controllers
                     {
                         Status = ResponseStatus.Success,
                         Data = partialHtml,
-                        TaskId = taskCard.TaskId,
+                        taskCard.TaskId,
                         TargetId = GetDisplayTargetId(taskCard.EisenHowerType)
                     });
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //todo use elma to log ex
                     ModelState.AddModelError("Exception", "Hi Boss, System is sick. Need MC!");
@@ -181,7 +175,7 @@ namespace PushPull.Controllers
                         Status = ResponseStatus.Success
                     });
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //todo use elma to log ex
                     ModelState.AddModelError("Exception", "Hi Boss, System is sick. Need MC!");
@@ -200,7 +194,7 @@ namespace PushPull.Controllers
             {
                 try
                 {
-                    var taskCard = await TaskRepository.UpdateStatus(taskId,CardStatus.Completed);
+                    var taskCard = await TaskRepository.UpdateStatus(taskId, CardStatus.Completed);
                     await UpdateAsset(taskCard, User.Identity);
                     return Json(new
                     {
@@ -216,7 +210,7 @@ namespace PushPull.Controllers
             }
             return Json(new
             {
-                Status = ResponseStatus.Fail,
+                Status = ResponseStatus.Fail
             });
         }
 
@@ -243,7 +237,7 @@ namespace PushPull.Controllers
             }
             return Json(new
             {
-                Status = ResponseStatus.Fail,
+                Status = ResponseStatus.Fail
             });
         }
 
@@ -261,7 +255,7 @@ namespace PushPull.Controllers
                 ModifiedBy = identity.Name,
                 ModifiedOn = DateTime.Now,
                 Date = DateTime.Today,
-                DayOfWeek = (int)DateTime.Today.DayOfWeek
+                DayOfWeek = (int) DateTime.Today.DayOfWeek
             };
             await AssetRepository.UpdateAssetAsync(asset);
         }

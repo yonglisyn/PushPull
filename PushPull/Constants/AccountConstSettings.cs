@@ -17,5 +17,6 @@ namespace PushPull.Constants
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             NullValueHandling = NullValueHandling.Ignore
         };
+
     }
 }

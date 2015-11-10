@@ -110,5 +110,13 @@ namespace PushPull.Tests.ViewModels
             Assert.AreEqual("Monday", result[6]);
         }
 
+        [Test]
+        public void Dummy()
+        {
+            var test = (new DateTime(2015,11,09) - new DateTime(1900,1,1)).Days/7;
+            Assert.AreEqual(6045,test);
+            test = (new DateTime(2015, 11, 08) - new DateTime(1900, 1, 1)).Days / 7;
+            Assert.AreEqual(6044,test);
+        }
     }
 }

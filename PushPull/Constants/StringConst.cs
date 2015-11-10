@@ -2,6 +2,7 @@
 {
     public class StringConst
     {
+        public const string PercentageP0 = "P0";
         public const string EmailProvider = "EmailCode";
         public const string IuTaskList = "iuTaskList";
         public const string InuTaskList = "inuTaskList";

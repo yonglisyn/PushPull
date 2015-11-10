@@ -5,6 +5,6 @@ namespace PushPull.ViewModels
         public int Value { get; set; }
         public string Color { get; set; }
         public string Highlight { get; set; }
-        public string Lable { get; set; }
+        public string Label { get; set; }
     }
 }

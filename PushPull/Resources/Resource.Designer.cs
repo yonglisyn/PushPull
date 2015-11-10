@@ -70,24 +70,6 @@ namespace PushPull.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click to exclude tasks without deadlin.
-        /// </summary>
-        public static string ClickExcludeNoDeadLine {
-            get {
-                return ResourceManager.GetString("ClickExcludeNoDeadLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Click to include tasks without deadlin.
-        /// </summary>
-        public static string ClickIncludeNoDeadLine {
-            get {
-                return ResourceManager.GetString("ClickIncludeNoDeadLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cannot be longer than 50 characters.
         /// </summary>
         public static string CommonStringMaxLength {

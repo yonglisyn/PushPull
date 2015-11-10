@@ -45,5 +45,44 @@ namespace PushPull.Helpers.Extensions
             asset.AssetValue = (decimal)value;
             return asset;
         }
+
+
+        public static DailyTaskReport WithValues(this DailyTaskReport dailyTaskReport,int completed, int failed)
+        {
+            dailyTaskReport.CompletedCount = completed;
+            dailyTaskReport.FailedCount = failed;
+            dailyTaskReport.TotalCount = completed + failed;
+            return dailyTaskReport;
+        }
+
+        public static DailyTaskReport WithType(this DailyTaskReport dailyTaskReport, EisenHowerType eisenHowerType)
+        {
+            dailyTaskReport.EisenHowerType = eisenHowerType;
+            return dailyTaskReport;
+        }
+        public static DailyTaskReport WithDate(this DailyTaskReport dailyTaskReport, DateTime date)
+        {
+            dailyTaskReport.Date = date;
+            return dailyTaskReport;
+        }
+        public static WeeklyTaskReport WithValues(this WeeklyTaskReport weeklyTaskReport,int completed, int failed)
+        {
+            weeklyTaskReport.CompletedCount = completed;
+            weeklyTaskReport.FailedCount = failed;
+            weeklyTaskReport.TotalCount = completed + failed;
+            return weeklyTaskReport;
+        }
+
+        public static WeeklyTaskReport WithType(this WeeklyTaskReport weeklyTaskReport, EisenHowerType eisenHowerType)
+        {
+            weeklyTaskReport.EisenHowerType = eisenHowerType;
+            return weeklyTaskReport;
+        }
+        public static WeeklyTaskReport WithWeekIndex(this WeeklyTaskReport weeklyTaskReport, int weekIndex)
+        {
+            weeklyTaskReport.WeekIndex = weekIndex;
+            return weeklyTaskReport;
+        }
+
     }
 }

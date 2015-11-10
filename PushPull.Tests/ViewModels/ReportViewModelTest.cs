@@ -9,57 +9,48 @@ namespace PushPull.Tests.ViewModels
     [TestFixture]
     public class ReportViewModelTest
     {
+        private readonly WeeklyTaskReport _IuWeeklyTaskReport = new WeeklyTaskReport
+        {
+            EisenHowerType = EisenHowerType.ImportantAndUrgent,
+            CompletedCount = 100,
+            FailedCount = 20,
+            TotalCount = 120
+        };
+
         [Test]
         public void GetIuPieViewModel_ShouldBeCorrect()
         {
-            var reports = new List<TaskReport>{new TaskReport
-            {
-                EisenHowerType = EisenHowerType.ImportantAndUrgent,
-                PendingCount = 10,
-                CompletedCount = 100,
-                FailedCount = 20,
-                TotalCount = 130
-            }};
-            var model = new ReportViewModel(reports);
+            var reports = new List<WeeklyTaskReport>{_IuWeeklyTaskReport};
+            var model = new DailyReportViewModel(reports);
             var result = model.GetPieChartViewModels(EisenHowerType.ImportantAndUrgent);
 
-            Assert.AreEqual(3,result.Count);
-            Assert.AreEqual(10,result[0].Value);
-            Assert.AreEqual(20,result[1].Value);
-            Assert.AreEqual(100,result[2].Value);
+            Assert.AreEqual(2,result.Count);
+            Assert.AreEqual(20,result[0].Value);
+            Assert.AreEqual(100,result[1].Value);
         }
         [Test]
         public void GetNiuPieViewModel_ShouldBeCorrect()
         {
-            var reports = new List<TaskReport>{new TaskReport
+            var reports = new List<WeeklyTaskReport>{new WeeklyTaskReport
             {
                 EisenHowerType = EisenHowerType.NotImportantAndUrgent,
-                PendingCount = 10,
                 CompletedCount = 100,
                 FailedCount = 20,
-                TotalCount = 130
+                TotalCount = 120
             }};
-            var model = new ReportViewModel(reports);
+            var model = new DailyReportViewModel(reports);
             var result = model.GetPieChartViewModels(EisenHowerType.NotImportantAndUrgent);
 
-            Assert.AreEqual(3,result.Count);
-            Assert.AreEqual(10,result[0].Value);
-            Assert.AreEqual(20,result[1].Value);
-            Assert.AreEqual(100,result[2].Value);
+            Assert.AreEqual(2,result.Count);
+            Assert.AreEqual(20,result[0].Value);
+            Assert.AreEqual(100,result[1].Value);
         }
 
         [Test]
         public void GetPieViewModel_ShouldBeNull_WhenCannotFindReport()
         {
-            var reports = new List<TaskReport>{new TaskReport
-            {
-                EisenHowerType = EisenHowerType.ImportantAndUrgent,
-                PendingCount = 10,
-                CompletedCount = 100,
-                FailedCount = 20,
-                TotalCount = 130
-            }};
-            var model = new ReportViewModel(reports);
+            var reports = new List<WeeklyTaskReport>{_IuWeeklyTaskReport};
+            var model = new DailyReportViewModel(reports);
             var result = model.GetPieChartViewModels(EisenHowerType.NotImportantAndUrgent);
 
             Assert.AreEqual(null, result);

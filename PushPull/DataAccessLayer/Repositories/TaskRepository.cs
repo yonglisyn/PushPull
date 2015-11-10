@@ -68,7 +68,6 @@ namespace PushPull.DataAccessLayer.Repositories
         {
             using (var db = new ApplicationDbContext())
             {
-
                 var taskCard = db.Set<TaskCard>().First(x => x.TaskId == taskCardId);
                 taskCard.Card.Status = status;
                 await db.SaveChangesAsync();

@@ -5,33 +5,30 @@ using PushPull.Constants;
 using PushPull.Enums;
 using PushPull.Models;
 using PushPull.Resources;
-using PushPull.Constants;
 
 namespace PushPull.ViewModels
 {
-    public class ReportViewModel
+    public class DailyReportViewModel
     {
-        private readonly List<TaskReport> _WeeklyTaskReports;
-        private readonly PieChartViewModel _PendingTaskPie = new PieChartViewModel
-        {
-            Color = StringConst.Yellow,
-            Highlight = StringConst.YellowHighlight,
-            Lable = Resource.PendingTask
-        };
+        private readonly List<WeeklyTaskReport> _WeeklyTaskReports;
+        private readonly List<DailyTaskReport> _DailyTaskReports;
+
         private readonly PieChartViewModel _FailedTaskPie = new PieChartViewModel
         {
-            Color = StringConst.Red,
-            Highlight = StringConst.RedHighlight,
-            Lable = Resource.FailedTask
+            Color = StringConst.RedHighlight,
+            Highlight = StringConst.Red,
+            Label = Resource.FailedTask
         };
         private readonly PieChartViewModel _CompletedTaskPie = new PieChartViewModel
         {
-            Color = StringConst.Green,
-            Highlight = StringConst.GreenHighlight,
-            Lable = Resource.CompletedTask
+            Color = StringConst.GreenHighlight,
+            Highlight = StringConst.Green,
+            Label = Resource.CompletedTask
         };
 
-        public string TotalPieChart
+
+
+        public string TotalPieJson
         {
             get
             {
@@ -56,18 +53,19 @@ namespace PushPull.ViewModels
         }
 
 
-        public ReportViewModel(List<TaskReport> weeklyTaskData)
+        public DailyReportViewModel(List<WeeklyTaskReport> weeklyTaskData, List<DailyTaskReport> dailyTaskData)
         {
             _WeeklyTaskReports = weeklyTaskData;
+            _DailyTaskReports = dailyTaskData;
         }
 
         public List<PieChartViewModel> GetPieChartViewModels()
         {
             var pies = new List<PieChartViewModel>();
-            _PendingTaskPie.Value = _WeeklyTaskReports.Sum(x=>x.PendingCount);
-            _FailedTaskPie.Value = _WeeklyTaskReports.Sum(x=>x.FailedCount);
-            _CompletedTaskPie.Value = _WeeklyTaskReports.Sum(x=>x.CompletedCount);
-            pies.Add(_PendingTaskPie);
+            var failedCount = _DailyTaskReports.Sum(x => x.FailedCount);
+            var completedCount = _DailyTaskReports.Sum(x => x.CompletedCount);
+            _FailedTaskPie.Value = (failedCount*100 / (failedCount + completedCount));
+            _CompletedTaskPie.Value = (completedCount * 100 / (failedCount + completedCount));
             pies.Add(_FailedTaskPie);
             pies.Add(_CompletedTaskPie);
             return pies;
@@ -76,15 +74,13 @@ namespace PushPull.ViewModels
         public List<PieChartViewModel> GetPieChartViewModels(EisenHowerType eisenHowerType)
         {
             var pies = new List<PieChartViewModel>();
-            var taskReport = _WeeklyTaskReports.FirstOrDefault(x => x.EisenHowerType == eisenHowerType);
+            var taskReport = _DailyTaskReports.FirstOrDefault(x => x.EisenHowerType == eisenHowerType);
             if (taskReport == null)
             {
                 return null;
             }
-            _PendingTaskPie.Value = taskReport.PendingCount;
-            _FailedTaskPie.Value = taskReport.FailedCount;
-            _CompletedTaskPie.Value = taskReport.CompletedCount;
-            pies.Add(_PendingTaskPie);
+            _FailedTaskPie.Value = (taskReport.FailedCount * 100 / taskReport.TotalCount);
+            _CompletedTaskPie.Value = (taskReport.CompletedCount * 100 / taskReport.TotalCount);
             pies.Add(_FailedTaskPie);
             pies.Add(_CompletedTaskPie);
             return pies;

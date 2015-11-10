@@ -24,7 +24,8 @@ namespace PushPull.DataAccessLayer
         public DbSet<TaskCard> TaksCards { get; set; }
         public DbSet<Asset> Assets { get; set; }
         public DbSet<CustomerLife> CustomerLives { get; set; }
-        public DbSet<TaskReport> Reports { get; set; }
+        public DbSet<WeeklyTaskReport> WeeklyReports { get; set; }
+        public DbSet<DailyTaskReport> DailyReports { get; set; }
 
         public static ApplicationDbContext Create()
         {
@@ -75,23 +76,23 @@ namespace PushPull.DataAccessLayer
             modelBuilder.Entity<TaskCard>()
                 .Property(t => t.Card.Content)
                 .HasMaxLength(AccountConstSettings.CommonStringLength);
-
             modelBuilder.Entity<Asset>().Property(x => x.UserId).HasColumnAnnotation(
                 IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_Asset_UserId")));
             modelBuilder.Entity<Asset>().Property(x => x.Date).HasColumnAnnotation(
                 IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_Asset_Date")));
-            
             modelBuilder.Entity<CustomerLife>().Property(a => a.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            
             modelBuilder.Entity<ApplicationUser>()
                 .Property(t => t.PasswordHash)
                 .HasMaxLength(AccountConstSettings.PasswordHashLength);
-
-            modelBuilder.Entity<TaskReport>().Property(x => x.UserId).HasColumnAnnotation(
-                IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_TaskReport_UserId")));
-            modelBuilder.Entity<TaskReport>().Property(x => x.WeekIndex).HasColumnAnnotation(
-                IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_TaskReport_WeekIndex")));
+            modelBuilder.Entity<WeeklyTaskReport>().Property(x => x.UserId).HasColumnAnnotation(
+                IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_TaskWeeklyReport_UserId")));
+            modelBuilder.Entity<WeeklyTaskReport>().Property(x => x.WeekIndex).HasColumnAnnotation(
+                IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_TaskWeeklyReport_WeekIndex")));
+            modelBuilder.Entity<DailyTaskReport>().Property(x => x.UserId).HasColumnAnnotation(
+                IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_TaskDailyReport_UserId")));
+            modelBuilder.Entity<DailyTaskReport>().Property(x => x.Date).HasColumnAnnotation(
+                IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_TaskDailyReport_Date")));
             
         }
 
@@ -100,7 +101,8 @@ namespace PushPull.DataAccessLayer
             modelBuilder.Entity<TaskCard>().HasKey(t => t.TaskId);
             modelBuilder.Entity<CustomerLife>().HasKey(a => a.Id);
             modelBuilder.Entity<Asset>().HasKey(x => new { x.UserId, x.AssetPurpose, x.AssetType, x.Date });
-            modelBuilder.Entity<TaskReport>().HasKey(x => new { x.UserId, x.EisenHowerType, x.WeekIndex});
+            modelBuilder.Entity<WeeklyTaskReport>().HasKey(x => new { x.UserId, x.EisenHowerType, x.WeekIndex});
+            modelBuilder.Entity<DailyTaskReport>().HasKey(x => new { x.UserId, x.EisenHowerType, x.Date});
 
         }
 

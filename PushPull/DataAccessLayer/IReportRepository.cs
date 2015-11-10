@@ -6,6 +6,7 @@ namespace PushPull.DataAccessLayer
 {
     public interface IReportRepository
     {
-        Task<List<TaskReport>> GetOneWeekTaskReportAsync(int userId, int weekIndex);
+        Task<List<WeeklyTaskReport>> GetWeeklyTaskReportAsync(int userId, int weekIndex);
+        Task<List<DailyTaskReport>> GetDailyTaskReportAsync(int userId);
     }
 }

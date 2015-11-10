@@ -10,9 +10,9 @@ namespace PushPull.Controllers
     public class ReportController : Controller
     {
         private static readonly DateTime _StartDateTime = new DateTime(1900, 1, 1);
-        private ReportRepository _ReportRepository;
+        private IReportRepository _ReportRepository;
 
-        public ReportRepository ReportRepository
+        public IReportRepository ReportRepository
         {
             get { return _ReportRepository ?? (_ReportRepository = new ReportRepository()); }
         }
@@ -22,8 +22,9 @@ namespace PushPull.Controllers
         {
             var userId = User.Identity.GetUserId<int>();
             var lastWeekIndex = GetWeekIndex(DateTime.Now)-1;
-            var weeklyTaskData =await _ReportRepository.GetOneWeekTaskReportAsync(userId, lastWeekIndex);
-            var reportViewModel = new ReportViewModel(weeklyTaskData);
+            var weeklyTaskData = await ReportRepository.GetWeeklyTaskReportAsync(userId, lastWeekIndex);
+            var dailyTaskData = await ReportRepository.GetDailyTaskReportAsync(userId);
+            var reportViewModel = new DailyReportViewModel(weeklyTaskData,dailyTaskData);
             return View("Index", reportViewModel);
         }
 

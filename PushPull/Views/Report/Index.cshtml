@@ -1,10 +1,7 @@
 ﻿@using PushPull.Resources
-@model PushPull.ViewModels.ReportViewModel
+@model PushPull.ViewModels.DailyReportViewModel
 
-@{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
-}
+
 
 <h2>title</h2>
 <script src="~/Scripts/Chart.min.js"></script>
@@ -90,10 +87,6 @@
             </div>
             <div class="panel-body">
                 <div class="col-md-6">
-                    <ul class="nav nav-tabs">
-                        <li data-mode="includeNoDeadline" data-target="totalReportChart" class="active reportChartTab lineChartTab"><a href="#" data-toggle="tab">@Resource.ClickExcludeNoDeadLine</a></li>
-                        <li data-mode="excludeNoDeadline" data-target="totalReportChart" class="reportChartTab lineChartTab"><a href="#" class="" data-toggle="tab">@Resource.ClickIncludeNoDeadLine</a></li>
-                    </ul>
                     <div style="padding-top: 15px">
                         <canvas id="totalReportChart" style="width: 600px; height: 400px"></canvas>
                     </div>
@@ -104,14 +97,14 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-        drawPieChart("totalReportChart", '@Html.Raw(Model.TotalPie)');
+        drawPieChart("totalReportChart", '@Html.Raw(Model.TotalPieJson)');
     });
-    $(document).ready(function () {
+    @*$(document).ready(function () {
         $('.moneyChartTab').on('click',function(event) {
             var tab = $(this);
             var mode = tab.data('mode');
             var target = tab.data('target');
-            drawPieChart(target, '@Html.Raw(Model.TotalPieChart)',mode);
+            drawPieChart(target, '@Html.Raw(Model.TotalPieJson)',mode);
         });
         $('.timeChartTab').on('click',function(event) {
             var tab = $(this);
@@ -119,28 +112,17 @@
             var target = tab.data('target');
             drawChart(target, '@Html.Raw(Model.TimePullChart)', '@Html.Raw(Model.TimePushChart)',mode);
         });
-    });
-    function drawPieChart(id, data, mode) {
-        var lable = [@Html.Raw(string.Join(",", Model.Lables.Select(x => "'" + x + "'")))];
-        var pullData = $.parseJSON(pull);
-        pullData.data = mode == 'daily' ? pullData.dailyData : pullData.integratedData;
-        var pushData = $.parseJSON(push);
-        pushData.data = mode == 'daily' ? pushData.dailyData : pushData.integratedData;
-        var moneyData = {
-            labels: lable,
-            datasets: [
-                pullData,
-                pushData
-            ]
-        };
-        console.log(moneyData.datasets);
+    });*@
+    function drawPieChart(id, data) {
         var ctx = document.getElementById(id).getContext("2d");
-        new Chart(ctx).Line(moneyData,
+        var pieData = $.parseJSON(data);
+        new Chart(ctx).Doughnut(pieData,
         {
-            bezierCurve: false,
-            animationSteps: 100,
-            animationEasing: 'easeOutQuad'
+            animateScale: true
         });
+        ctx.fillStyle = 'black';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(data[0].value + "%", this.chart.width / 2 - 20, this.chart.width / 2, 200);
     };
 
 </script>
